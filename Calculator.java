@@ -1,42 +1,38 @@
-package calculator;
-
 import java.util.*;
 
 public class Calculator {
 
-    final String ADDITION = "+";
-    final String SUBTRACTION = "-";
-    final String MULTIPLICATION = "*";
-    final String DIVISION = "/";
+    final static String ADDITION = "+";
+    final static String SUBTRACTION = "-";
+    final static String MULTIPLICATION = "*";
+    final static String DIVISION = "/";
+    final static String EXPONENT = "^";
 
     public static void main(String[] args) {
         char answer = 'y';
-        double result;
-        
-        System.out.println("""
-                           This program is a calculator""");
-        
 
-        while (answer == 'y')
-        {
-            
-            result = compute();
-            System.out.print("""
-                         The result is:
-                         """ + result);
+        System.out.println("""
+                This program is a calculator
+                """);
+
+        while (answer == 'y') {
+
+            double result = compute();
+            System.out.println("""
+                    \nThe result is:
+                    """ + result + "\n\n");
             answer = run();
         }
-        
+
         System.exit(0);
 
     }
 
     public static char run() {
-        System.out.print("""
-                         
-                         Would you like to use the calculator again?
-                         
-                         Yes or No
+        System.out.println("""
+                Would you like to use the calculator again?
+
+                Yes or No
                 """);
         Scanner keyboard = new Scanner(System.in);
         String input = keyboard.nextLine();
@@ -49,38 +45,73 @@ public class Calculator {
         double answer = 0, var1, var2;
         String operation;
 
+        var1 = numberOne();
+        var2 = numberTwo();
+        operation = operand();
+
+        switch (operation) {
+            case ADDITION -> answer = addition(var1, var2);
+            case SUBTRACTION -> answer = subtraction(var1, var2);
+            case MULTIPLICATION -> answer = multiplication(var1, var2);
+            case DIVISION -> {
+                while (var2 == 0) {
+                    System.out.println("""
+                            \nDivision by Zero is undefined
+                                Please pick a new number to divide by
+                            """);
+                    var2 = numberTwo();
+                }
+                answer = division(var1, var2);
+            }
+            case EXPONENT -> {
+                while (var1 < 0 && var2 > -1 && var2 < 1) {
+                    System.out.println("""
+                            \nThis calculator cannot root a negative number
+                                Please pick new numbers
+                            """);
+                    var1 = numberOne();
+                    var2 = numberTwo();
+                }
+                answer = exponent(var1, var2);
+            }
+        }
+
+        return answer;
+    }
+
+    public static double numberOne() {
+        double var1;
         System.out.println("""
-                           Enter in two numbers you want to
-                               add, subtract, multiply, or divide
-                           
-                           Those two numbers are?
-                           """);
+                Enter in a number.
+                """);
         Scanner keyboard = new Scanner(System.in);
         var1 = keyboard.nextDouble();
-        System.out.println("and");
-        var2 = keyboard.nextDouble();
-        System.out.println("""
-                           
-                           Enter the operator to perform:                           
-                           '+' '-' '*' '/'
-                           
-                           """);
-        
-        keyboard.nextLine();
+        return var1;
+    }
 
-        operation = keyboard.nextLine();
-        switch (operation) {
-            case "+" ->
-                answer = addition(var1, var2);
-            case "-" ->
-                answer = subtraction(var1, var2);
-            case "*" ->
-                answer = multiplication(var1, var2);
-            case "/" ->
-                answer = division(var1, var2);
-        }
-        
-    return answer;
+    public static double numberTwo() {
+        double var2;
+        System.out.println("""
+                \nEnter the second number...
+
+                Use this number to
+                    add, subtract, multiply, divide, raise by
+                the first number.
+                """);
+        Scanner keyboard = new Scanner(System.in);
+        var2 = keyboard.nextDouble();
+        return var2;
+    }
+
+    public static String operand() {
+        System.out.println("""
+                \nEnter the operator to perform:
+                '+' '-' '*' '/' '^'
+                """);
+
+        Scanner keyboard = new Scanner(System.in);
+        String operation = keyboard.nextLine();
+        return operation;
     }
 
     public static double addition(double var1, double var2) {
@@ -102,4 +133,10 @@ public class Calculator {
         double answer = var1 / var2;
         return answer;
     }
+
+    public static double exponent(double var1, double var2) {
+        double answer = Math.pow(var1, var2);
+        return answer;
+    }
 }
+ 
