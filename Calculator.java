@@ -1,3 +1,5 @@
+package calculator;
+
 import java.util.*;
 
 public class Calculator {
@@ -48,11 +50,11 @@ public class Calculator {
         var1 = numberOne();
         var2 = numberTwo();
         operation = operand();
-
-        switch (operation) {
-            case ADDITION -> answer = addition(var1, var2);
-            case SUBTRACTION -> answer = subtraction(var1, var2);
-            case MULTIPLICATION -> answer = multiplication(var1, var2);
+        
+        answer = switch (operation) {
+            case ADDITION -> addition(var1, var2);
+            case SUBTRACTION -> subtraction(var1, var2);
+            case MULTIPLICATION -> multiplication(var1, var2);
             case DIVISION -> {
                 while (var2 == 0) {
                     System.out.println("""
@@ -61,7 +63,7 @@ public class Calculator {
                             """);
                     var2 = numberTwo();
                 }
-                answer = division(var1, var2);
+                yield division(var1, var2);
             }
             case EXPONENT -> {
                 while (var1 < 0 && var2 > -1 && var2 < 1) {
@@ -72,9 +74,10 @@ public class Calculator {
                     var1 = numberOne();
                     var2 = numberTwo();
                 }
-                answer = exponent(var1, var2);
+                yield exponent(var1, var2);
             }
-        }
+            
+        };
 
         return answer;
     }
