@@ -1,5 +1,6 @@
 package calculator;
 
+
 import java.util.*;
 
 public class Calculator {
@@ -44,24 +45,29 @@ public class Calculator {
     }
 
     public static double compute() {
-        double answer = 0, var1, var2;
-        String operation;
-
-        var1 = numberOne();
-        var2 = numberTwo();
-        operation = operand();
+        double result[] = numberOneAndTwo();
+        double answer = 0, var1 = result[0], var2 = result[1];
+        String operation = operand();
         
         answer = switch (operation) {
-            case ADDITION -> addition(var1, var2);
-            case SUBTRACTION -> subtraction(var1, var2);
-            case MULTIPLICATION -> multiplication(var1, var2);
+            case ADDITION -> {
+                yield addition(var1, var2);
+            }
+            case SUBTRACTION -> {
+                yield subtraction(var1, var2);
+            }
+            case MULTIPLICATION -> {
+                yield multiplication(var1, var2);
+            }
             case DIVISION -> {
                 while (var2 == 0) {
                     System.out.println("""
                             \nDivision by Zero is undefined
-                                Please pick a new number to divide by
+                                Please pick a new numbers to divide by
                             """);
-                    var2 = numberTwo();
+                    double retryResult[] = numberOneAndTwo();
+                    var1 = retryResult[0];
+                    var2 = retryResult[1];
                 }
                 yield division(var1, var2);
             }
@@ -71,29 +77,40 @@ public class Calculator {
                             \nThis calculator cannot root a negative number
                                 Please pick new numbers
                             """);
-                    var1 = numberOne();
-                    var2 = numberTwo();
+                    double retryResult[] = numberOneAndTwo();
+                    var1 = retryResult[0];
+                    var2 = retryResult[1];
+                    
                 }
                 yield exponent(var1, var2);
             }
-            
+            default -> 0;
         };
 
         return answer;
     }
 
-    public static double numberOne() {
-        double var1;
+    public static double[] numberOneAndTwo() {
+        double var1 = 1;
+        double var2 = 2;
         System.out.println("""
                 Enter in a number.
                 """);
         Scanner keyboard = new Scanner(System.in);
         var1 = keyboard.nextDouble();
-        return var1;
+        System.out.println("""
+                \nEnter the second number...
+
+                Use this number to
+                    add, subtract, multiply, divide, raise by
+                the first number.
+                """);
+        var2 = keyboard.nextDouble();
+        return new double[] {var1, var2};
+        
     }
 
-    public static double numberTwo() {
-        double var2;
+    public static double retryNumberTwo() {
         System.out.println("""
                 \nEnter the second number...
 
@@ -102,8 +119,9 @@ public class Calculator {
                 the first number.
                 """);
         Scanner keyboard = new Scanner(System.in);
-        var2 = keyboard.nextDouble();
+        double var2 = keyboard.nextDouble();
         return var2;
+        
     }
 
     public static String operand() {
