@@ -18,11 +18,13 @@ public class Calculator {
                 """);
 
         while (answer == 'y') {
-
-            double result = compute();
+            double result[] = numberOneAndTwo();
+            double var1 = result[0], var2 = result[1];
+            String operation = operation();
+            double calculation = compute(var1, var2, operation);
             System.out.println("""
                     \nThe result is:
-                    """ + result + "\n\n");
+                    """ + calculation + "\n\n");
             answer = run();
         }
 
@@ -43,10 +45,10 @@ public class Calculator {
         return firstLetter;
     }
 
-    public static double compute() {
-        double result[] = numberOneAndTwo();
-        double answer = 0, var1 = result[0], var2 = result[1];
-        String operation = operand();
+    public static double compute(double var1, double var2, String operation) {
+        
+        double answer = 0;
+        
         
         answer = switch (operation) {
             case ADDITION -> {
@@ -123,7 +125,7 @@ public class Calculator {
         
     }
 
-    public static String operand() {
+    public static String operation() {
         System.out.println("""
                 \nEnter the operator to perform:
                 '+' '-' '*' '/' '^'
