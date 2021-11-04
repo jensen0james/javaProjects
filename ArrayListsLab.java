@@ -5,33 +5,34 @@ import java.util.*;
 public class ArrayListsLab {
 
     public static void main(String[] args) {
-        ArrayList<String> titleCaseStrings = new ArrayList<>();
-        titleCaseStrings.add("titleCaseOne");
-        titleCaseStrings.add("titleCaseTwo");
-        titleCaseStrings.add("titleCaseThree");
-        titleCaseStrings.add("titleCaseFour");
-        titleCaseStrings.add("titleCaseFive");
-        titleCaseStrings.add("titleCaseSix");
-        titleCaseStrings.remove(3);
+        ArrayList<String> TitleCaseStrings = new ArrayList<>();
+        TitleCaseStrings.add("TitleCaseOne");
+        TitleCaseStrings.add("TitleCaseTwo");
+        TitleCaseStrings.add("TitleCaseThree");
+        TitleCaseStrings.add("TitleCaseFour");
+        TitleCaseStrings.add("TitleCaseFive");
+        TitleCaseStrings.add("TitleCaseSix");
+        TitleCaseStrings.remove(3);
         
-        Display(titleCaseStrings);        
+        Display(TitleCaseStrings);        
         
-        for (int i = 0; i < titleCaseStrings.size(); i++) {
-            titleCaseStrings.set(i, titleCaseStrings.get(i).toUpperCase());
+        for (int i = 0; i < TitleCaseStrings.size(); i++) {
+            TitleCaseStrings.set(i, TitleCaseStrings.get(i).toUpperCase());
     }
         
-        Display(titleCaseStrings);
+        Display(TitleCaseStrings);
     
-        isEmpty(titleCaseStrings);
+        arrayListEmpty(TitleCaseStrings);
         
-        System.out.println("the Array list has " + titleCaseStrings.size() + " items");
+        System.out.println("the Array list has " + TitleCaseStrings.size() + " items");
         
-        for (int i = 0; i < titleCaseStrings.size(); i++) {
-            titleCaseStrings.remove(i);
+        for (int i = 0; i < TitleCaseStrings.size(); i++) {
+            while(TitleCaseStrings.size() > 0) 
+                TitleCaseStrings.remove(0); 
     }
-        System.out.println("the Array list has " + titleCaseStrings.size() + " items");
-        Display(titleCaseStrings);
-        isEmpty(titleCaseStrings);
+        System.out.println("the Array list has " + TitleCaseStrings.size() + " items");
+        Display(TitleCaseStrings);
+        arrayListEmpty(TitleCaseStrings);
 }
     public static void Display(ArrayList<String> titleCaseStrings) {
         //Enhanced for loop
@@ -39,7 +40,7 @@ public class ArrayListsLab {
             System.out.println(title);
         });
 }
-    public static void isEmpty(ArrayList<String> titleCaseStrings) {
+    public static void arrayListEmpty(ArrayList<String> titleCaseStrings) {
         boolean answer = titleCaseStrings.isEmpty();
         if (answer == true)
             System.out.println("The ArrayList is empty");
