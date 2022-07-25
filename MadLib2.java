@@ -76,26 +76,26 @@ public class MadLib2 extends JFrame {
 
                 background.setVisible(true);
 
-                colourMap.put("Cyan", Color.cyan);
-                colourMap.put("Grey", Color.gray);
-                colourMap.put("Light Gray", Color.lightGray);
-                colourMap.put("Orange", Color.orange);
-                colourMap.put("Red", Color.red);
-                colourMap.put("Yellow", Color.yellow);
-                colourMap.put("Blue", Color.blue);
-                colourMap.put("Dark Gray", Color.darkGray);
-                colourMap.put("Green", Color.green);
-                colourMap.put("Magenta", Color.magenta);
-                colourMap.put("Pink", Color.pink);
+                colorMap.put("Cyan", Color.cyan);
+                colorMap.put("Grey", Color.gray);
+                colorMap.put("Light Gray", Color.lightGray);
+                colorMap.put("Orange", Color.orange);
+                colorMap.put("Red", Color.red);
+                colorMap.put("Yellow", Color.yellow);
+                colorMap.put("Blue", Color.blue);
+                colorMap.put("Dark Gray", Color.darkGray);
+                colorMap.put("Green", Color.green);
+                colorMap.put("Magenta", Color.magenta);
+                colorMap.put("Pink", Color.pink);
 
         }
 
         private class ButtonListener implements ActionListener {
 
-                private void uiColour(boolean smegma,String colour) {
+                private void uiColor(boolean test,String color) {
                        String attribute;
 
-                       if(smegma == true)
+                       if(test == true)
                        {
                         attribute = "Panel.background";
                        }
@@ -106,8 +106,8 @@ public class MadLib2 extends JFrame {
 
 
                         UIManager UI = new UIManager();
-                        UI.put(attribute, new ColorUIResource(colourMap.get(colour)));
-                        JOptionPane.showMessageDialog(null, "You picked " + colour + " for your background.");
+                        UI.put(attribute, new ColorUIResource(colourMap.get(color)));
+                        JOptionPane.showMessageDialog(null, "You picked " + color + " for your background.");
                 }
 
 
@@ -117,10 +117,10 @@ public class MadLib2 extends JFrame {
                         String actionCommand = e.getActionCommand();
                         pressColorButton++;
                         if (pressColorButton == 1) {
-                                uiColour(true,actionCommand);
+                                uiColor(true,actionCommand);
                         }
                         if (pressColorButton == 2) {
-                                uiColour(false,actionCommand);
+                                uiColor(false,actionCommand);
                         }
 
                         if (pressColorButton >= 2) {
